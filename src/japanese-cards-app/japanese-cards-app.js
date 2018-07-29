@@ -1,28 +1,41 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {html, LitElement} from '@polymer/lit-element/lit-element.js';
 
-/**
- * @customElement
- * @polymer
- */
-class JapaneseCardsApp extends PolymerElement {
-  static get template() {
+import { SimpleCard } from './simple-card.js';
+
+import '../../node_modules/@ibm/plex/scss/ibm-plex.scss';
+
+class JapaneseCardsApp extends LitElement {
+  constructor() {
+    super();
+    this.characters = ['か', 'あ', 'さ', 'た'];
+  }
+  
+  _render() {
     return html`
       <style>
-        :host {
-          display: block;
+        *{
+          font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+        }
+        simple-card{
+          width: 30%;
+          height: 60%;
+        }
+        .main-page{
+          height: 100%;
+          display: flex;
+          flex-wrap: wrap;
         }
       </style>
-      <h2>Hello [[prop1]]!</h2>
-    `;
+      <div class="main-page">
+        <simple-card text="${this.characters[0]}"></simple-card>
+        <simple-card text="${this.characters[1]}"></simple-card>
+        <simple-card text="${this.characters[2]}"></simple-card>
+        <simple-card text="${this.characters[3]}"></simple-card>
+      </div>
+    `
   }
-  static get properties() {
-    return {
-      prop1: {
-        type: String,
-        value: 'japanese-cards-app'
-      }
-    };
-  }
+
+  _firstRendered() {}
 }
 
-window.customElements.define('japanese-cards-app', JapaneseCardsApp);
+customElements.define("japanese-cards-app", JapaneseCardsApp);
