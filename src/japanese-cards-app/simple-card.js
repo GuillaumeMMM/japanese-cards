@@ -1,8 +1,8 @@
-import { html, LitElement } from '@polymer/lit-element/lit-element.js';
-import '@polymer/paper-card/paper-card.js';
-import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/iron-icons/communication-icons.js';
-import '@polymer/paper-button/paper-button.js';
+import { html, LitElement } from '@polymer/lit-element';
+import '@polymer/paper-card';
+import '@polymer/iron-icons/iron-icons';
+import '@polymer/iron-icons/communication-icons';
+import '@polymer/paper-button';
 
 export default class SimpleCard extends LitElement {
   constructor() {
@@ -11,7 +11,7 @@ export default class SimpleCard extends LitElement {
 
   static get properties() {
     return {
-      text: String
+      dataElement: Object,
     };
   };
 
@@ -19,40 +19,90 @@ export default class SimpleCard extends LitElement {
     return html`
       <style>
         .japanese-character{
-          font-size: 18em;
+          font-size: 10vw;
           font-weight: 300;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        }
+
+        paper-card{
+          height: 100%;
+          padding: 20px;
+          width: 100%;
         }
 
         .card-content{
-          height: 90%;
+          width: 100%;
+          height: 100%;
+          margin: 0;
           padding: 0;
-        }
-        .card-actions{
           display: flex;
           align-items: center;
           justify-content: center;
-          width: 100%;
+        }
+
+        /* entire container, keeps perspective */
+        .flip-container {
+          perspective: 1000px;
+        }
+        /* flip the pane when hovered */
+        .flip-container:hover .flipper, .flip-container.hover .flipper {
+          transform: rotateY(180deg);
+        }
+
+        .flip-container, .front, .back {
+          width: 320px;
+          height: 480px;
+        }
+
+        /* flip speed goes here */
+        .flipper {
+          transition: 0.6s;
+          transform-style: preserve-3d;
+          position: relative;
+        }
+
+        /* hide back of pane during swap */
+        .front, .back {
+          backface-visibility: hidden;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+
+        /* front pane, placed above back */
+        .front {
+          z-index: 2;
+          /* for firefox 31 */
+          transform: rotateY(0deg);
+        }
+
+        /* back, initially hidden pane */
+        .back {
+          transform: rotateY(180deg);
         }
       </style>
-    <paper-card>
-      <div class="card-content">
-        <div class="japanese-character">${this.text}</div>
-      </div>
-      <div class="card-footer">
-        <div class="card-actions">
-            <paper-button>Action 1</paper-button>
-            <paper-button>Action 2</paper-button>
-            <paper-button>Action 3</paper-button>
+      <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+        <div class="flipper">
+          <div class="front">
+            <paper-card>
+              <div class="card-content">
+                <div class="japanese-character">${this.dataElement.front}</div>
+              </div>
+            </paper-card>
+          </div>
+          <div class="back">
+            <paper-card>
+              <div class="card-content">
+                <div class="japanese-character">${this.dataElement.back}</div>
+              </div>
+            </paper-card>
+          </div>
         </div>
       </div>
-    </paper-card>
     `
   }
 
-  _firstRendered() { }
+  _firstRendered() {
+  }
 }
 
 customElements.define("simple-card", SimpleCard);

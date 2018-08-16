@@ -1,13 +1,19 @@
-import {html, LitElement} from '@polymer/lit-element/lit-element.js';
+import {html, LitElement} from '@polymer/lit-element';
 
-import { SimpleCard } from './simple-card.js';
+import { SimpleCardDisplay } from './simple-card-display.js';
+import { CardsCollection } from './cards-collection.js';
 
 import '../../node_modules/@ibm/plex/scss/ibm-plex.scss';
 
 class JapaneseCardsApp extends LitElement {
   constructor() {
     super();
-    this.characters = ['か', 'あ', 'さ', 'た'];
+    this.dataElement = [
+      {front: 'か', back: 'NA'}, 
+      {front: 'あ', back: 'A'}, 
+      {front: 'さ', back: 'SA'}, 
+      {front: 'た', back: 'TA'}, 
+    ];
   }
   
   _render() {
@@ -16,21 +22,14 @@ class JapaneseCardsApp extends LitElement {
         *{
           font-family: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
         }
-        simple-card{
-          width: 30%;
-          height: 60%;
-        }
         .main-page{
           height: 100%;
-          display: flex;
-          flex-wrap: wrap;
         }
       </style>
       <div class="main-page">
-        <simple-card text="${this.characters[0]}"></simple-card>
-        <simple-card text="${this.characters[1]}"></simple-card>
-        <simple-card text="${this.characters[2]}"></simple-card>
-        <simple-card text="${this.characters[3]}"></simple-card>
+        <simple-card-display dataElement = "${this.dataElement[0]}"></simple-card-display>
+        <!-- <flip-test></flip-test> -->
+        <!-- <cards-collection></cards-collection> -->
       </div>
     `
   }
