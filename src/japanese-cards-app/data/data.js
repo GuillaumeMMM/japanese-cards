@@ -22,6 +22,7 @@ export const data = [
     type: 'exercise',
     id: 1,
     name: 'Katakanas',
+    urlName: 'katakanas',
     cards: [1,2],
   };
 
@@ -29,5 +30,6 @@ export const data = [
     type: 'exercise',
     id: 2,
     name: 'Hiraganas',
+    urlName: 'hiraganas',
     cards: [3,4],
   };

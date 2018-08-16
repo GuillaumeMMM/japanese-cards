@@ -4,7 +4,6 @@ import { SimpleCardDisplay } from './card/simple-card-display.js';
 import { CardsCollection } from './collection/cards-collection.js';
 import { Navbar } from './meta/navbar.js';
 import { Home } from './meta/home.js';
-import { CardsExercise } from './exercise/cards-exercise.js';
 import { ExercisesList } from './exercise/exercises-list.js';
 import { CollectionsList } from './collection/collections-list.js';
 

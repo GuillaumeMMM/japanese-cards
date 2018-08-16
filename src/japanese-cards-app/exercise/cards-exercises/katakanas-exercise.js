@@ -1,13 +1,14 @@
 import { html, LitElement } from '@polymer/lit-element';
 
-export default class CardsExercise extends LitElement {
+export default class KatakanasExercise extends LitElement {
   constructor() {
     super();
   }
 
   static get properties() {
     return {
-      text: String
+      urlName: String,
+      data: String,
     };
   };
 
@@ -16,13 +17,13 @@ export default class CardsExercise extends LitElement {
       <style>
 
       </style>
-      Cards Exercise Page
+      this.data.name Exercise Page
     `
   }
 
   _firstRendered() { 
-    console.log('rendered');
+    console.log(this.data);
   }
 }
 
-customElements.define("cards-exercise", CardsExercise);
+customElements.define("katakanas-exercise", KatakanasExercise);

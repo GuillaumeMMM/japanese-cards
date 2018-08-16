@@ -46,7 +46,7 @@ export default class Navbar extends LitElement {
       <div class="navbar">
         <ul>
           <li><a href="/">Home</a></li>
-          <li><a href="/collections">Collections</a></li>
+          <li><a href="#">Collections</a></li>
           <li><a href="/exercises">Exercises</a></li>
         </ul>
       </div>
