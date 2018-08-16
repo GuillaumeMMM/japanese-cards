@@ -18,7 +18,7 @@ export default class SimpleCard extends LitElement {
   _render() {
     return html`
       <style>
-        .japanese-character{
+        .content{
           font-size: 10vw;
           font-weight: 300;
         }
@@ -85,14 +85,14 @@ export default class SimpleCard extends LitElement {
           <div class="front">
             <paper-card>
               <div class="card-content">
-                <div class="japanese-character">${this.dataElement.front}</div>
+                <div class="content">${this.dataElement.front}</div>
               </div>
             </paper-card>
           </div>
           <div class="back">
             <paper-card>
               <div class="card-content">
-                <div class="japanese-character">${this.dataElement.back}</div>
+                <div class="content">${this.dataElement.back}</div>
               </div>
             </paper-card>
           </div>

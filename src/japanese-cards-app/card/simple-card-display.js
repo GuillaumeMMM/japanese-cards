@@ -1,15 +1,16 @@
 import { html, LitElement } from '@polymer/lit-element';
 
 import { SimpleCard } from './simple-card.js';
+import * as data from '../data/data.js';
 
 export default class SimpleCardDisplay extends LitElement {
   constructor() {
     super();
+    this.dataElement = data.data[0];
   }
 
   static get properties() {
     return {
-      dataElement: String,
     };
   };
 
@@ -18,7 +19,7 @@ export default class SimpleCardDisplay extends LitElement {
       <style>
         .card-container{
           width: 100%;
-          height: 100%;
+          height: 94%;
           display: flex;
           align-items: center;
           justify-content: center;
@@ -31,7 +32,6 @@ export default class SimpleCardDisplay extends LitElement {
   }
 
   _firstRendered() {
-    console.log(this.dataElement);
    }
 }
 
