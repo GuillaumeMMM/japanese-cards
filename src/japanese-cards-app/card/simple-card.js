@@ -42,6 +42,7 @@ export default class SimpleCard extends LitElement {
         /* entire container, keeps perspective */
         .flip-container {
           perspective: 1000px;
+          height: 100%;
         }
         /* flip the pane when hovered */
         .flip-container:hover .flipper, .flip-container.hover .flipper {
@@ -50,7 +51,6 @@ export default class SimpleCard extends LitElement {
 
         .flip-container, .front, .back {
           width: 320px;
-          height: 480px;
         }
 
         /* flip speed goes here */
@@ -78,6 +78,16 @@ export default class SimpleCard extends LitElement {
         /* back, initially hidden pane */
         .back {
           transform: rotateY(180deg);
+        }
+
+        .flipper, .front, .back{
+          height: 100%;
+        }
+
+        @media screen and (max-width: 700px) {
+          .content{
+            font-size: 30vw;
+          }
         }
       </style>
       <div class="flip-container" ontouchstart="this.classList.toggle('hover');">

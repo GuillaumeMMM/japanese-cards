@@ -25,6 +25,14 @@ class JapaneseCardsApp extends LitElement {
         .main-page{
           height: 100%;
         }
+        #outlet{
+          height: 80%;
+        }
+        @media screen and (max-width: 700px) {
+          #outlet{
+            height: 100%;
+          }
+        }
       </style>
       <div class="main-page">
         <navbar-element></navbar-element>

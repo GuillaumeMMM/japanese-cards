@@ -26,9 +26,22 @@ export default class ExercisesList extends LitElement {
     return html`
       <style>
         .title{
-            text-align: center;
-            font-weight: 800;
-            margin-top: 10%;
+            font-size: 5.5vw;
+            padding: 0 40px 20px 40px;
+            display: flex;
+            justify-content: center;
+        }
+        .summary-element{
+            width: 70%;
+            height: 15vh;
+            margin: 4vh 0 4vh 15%;
+            padding: 10px;
+            overflow: hidden;
+        }
+        paper-card{
+            width: 100%;
+            height: 100%;
+            background-color: #fafafa;
         }
         .invisible{
             display: none;
@@ -37,10 +50,9 @@ export default class ExercisesList extends LitElement {
             display: block;
         }
         .content{
-          width: 100%;
-        }
-        .content{
-          height: 6%;       
+            height: 80%; 
+            width: 100%;
+            margin-top: 7%;
         }
         .content a {
           text-decoration: none;
@@ -49,8 +61,22 @@ export default class ExercisesList extends LitElement {
         .content a:active{
             color: Tomato;
         }
-        .content a:hover{
-          border-bottom: 1px solid currentColor;
+        .summary-title{
+            padding: 5px 10px;
+            font-weight: 200;
+        }
+        .summary-preview{
+            margin-top:0;
+            margin-left:10px;
+            font-size: 8vh;
+            color: #e4e4e4;
+            font-weight: 200;
+        }
+        .detail{
+            height: 100%
+        }
+        #hiraganas, #hatakanas{
+            height: 100%
         }
       </style>
 
@@ -59,8 +85,30 @@ export default class ExercisesList extends LitElement {
                 Exercises List 
             </div>
             <div class="content">
-                <div class="summary-element"><a href="#" id="summary-hiragana" on-click="${(e) => this.hiraganaSelected(e)}">Cards Exercise Page : Hiraganas</a></div>
-                <div class="summary-element"> <a href="#" id="summary-katakanas" on-click="${(e) => this.katakanaSelected(e)}">Cards Exercise Page : Katakanas</a></div>
+                <div class="summary-element">
+                    <a href="#" id="summary-hiragana" on-click="${(e) => this.hiraganaSelected(e)}">
+                        <paper-card>
+                            <div class='summary-title'>
+                                Hiraganas
+                            </div>
+                            <div class='summary-preview'>
+                                あ か さ た な は ま や ら わ い き し ち に ひ み り う
+                            </div>
+                        </paper-card>
+                    </a>
+                </div>
+                <div class="summary-element"> 
+                    <a href="#" id="summary-katakanas" on-click="${(e) => this.katakanaSelected(e)}">
+                        <paper-card>
+                            <div class='summary-title'>
+                                Katakanas
+                            </div>
+                            <div class='summary-preview'>
+                                カ サ タ ナ ハ マ ヤ ラ ワ キ シ チ ニ ヒ
+                            </div>
+                        </paper-card>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="detail">
