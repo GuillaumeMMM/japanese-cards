@@ -9,7 +9,7 @@ export default class Navbar extends LitElement {
 
   static get properties() {
     return {
-      text: String
+      text: String,
     };
   };
 
@@ -37,23 +37,31 @@ export default class Navbar extends LitElement {
         .navbar ul li a:hover{
           border-bottom: 1px solid currentColor;
         }
-
-        .navbar ul li a:focus {
+        .underlined{
           border-bottom: 1px solid currentColor;
         }
 
       </style>
       <div class="navbar">
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#">Collections</a></li>
-          <li><a href="/exercises">Exercises</a></li>
+          <li><a href="/" id="home">Home</a></li>
+          <li><a href="#" id="collections">Collections</a></li>
+          <li><a href="/exercises" id="exercises">Exercises</a></li>
         </ul>
       </div>
     `
   }
 
   _firstRendered() {
+    if (this.text === 'home') {
+      this.shadowRoot.getElementById('home').classList.add("underlined");
+    }
+    if (this.text === 'collections') {
+      this.shadowRoot.getElementById('collections').classList.add("underlined");
+    }
+    if (this.text === 'exercises') {
+      this.shadowRoot.getElementById('exercises').classList.add("underlined");
+    }
    }
 }
 

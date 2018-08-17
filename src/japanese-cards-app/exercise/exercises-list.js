@@ -3,6 +3,7 @@ import { html, LitElement } from '@polymer/lit-element';
 import * as data from '../data/data.js';
 import { HiraganasExercise } from './cards-exercises/hiraganas-exercise.js';
 import { KatakanasExercise } from './cards-exercises/katakanas-exercise.js';
+import { Navbar } from '../meta/navbar.js';
 
 export default class ExercisesList extends LitElement {
   constructor() {
@@ -27,7 +28,7 @@ export default class ExercisesList extends LitElement {
       <style>
         .title{
             font-size: 5.5vw;
-            padding: 0 40px 20px 40px;
+            padding: 40px 40px 0 40px;
             display: flex;
             justify-content: center;
         }
@@ -79,7 +80,7 @@ export default class ExercisesList extends LitElement {
             height: 100%
         }
       </style>
-
+        <navbar-element text="exercises"></navbar-element>
         <div class="summary" id="summary">
             <div class='title'>
                 Exercises List 

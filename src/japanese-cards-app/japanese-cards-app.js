@@ -35,7 +35,7 @@ class JapaneseCardsApp extends LitElement {
         }
       </style>
       <div class="main-page">
-        <navbar-element></navbar-element>
+        <!-- <navbar-element></navbar-element> -->
         <div id="outlet"></div>
       </div>
     `

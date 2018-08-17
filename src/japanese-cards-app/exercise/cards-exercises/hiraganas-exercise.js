@@ -24,7 +24,7 @@ export default class HiraganasExercise extends LitElement {
 
         .title{
           font-size: 5.5vw;
-          padding: 0 40px 20px 40px;
+          padding: 20px 40px 20px 40px;
           display: flex;
           justify-content: center;
         }
@@ -65,7 +65,8 @@ export default class HiraganasExercise extends LitElement {
           }
 
           #previous-smallscreen, #next-smallscreen{
-            display: block;
+            display: flex;
+            flex-direction: row;
           }
           .content{
             flex-direction: column;
@@ -90,8 +91,8 @@ export default class HiraganasExercise extends LitElement {
           </div>
           <paper-button raised id="next" class="visible" on-click="${(e) => this.nextCard(e)}">Next</paper-button>
           <div class="buttons-smallscreen">
-            <paper-button raised id="previous-smallscreen" class="hidden" on-click="${(e) => this.previousCard(e)}">Previous</paper-button>
             <paper-button raised id="next-smallscreen" class="hidden" on-click="${(e) => this.nextCard(e)}">Next</paper-button>
+            <paper-button raised id="previous-smallscreen" class="hidden" on-click="${(e) => this.previousCard(e)}">Previous</paper-button>
           </div>
         </div>
       </div>
