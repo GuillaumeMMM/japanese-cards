@@ -1,6 +1,7 @@
 import { html, LitElement } from "../../../../node_modules/@polymer/lit-element/lit-element.js";
 import "../../../../node_modules/@polymer/paper-button/paper-button.js";
 import * as data from '../../data/data.js';
+import { SimpleCard } from "../../card/simple-card.js";
 export default class HiraganasExercise extends LitElement {
   constructor() {
     super();

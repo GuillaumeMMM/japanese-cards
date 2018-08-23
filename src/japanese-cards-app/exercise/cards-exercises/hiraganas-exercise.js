@@ -1,6 +1,7 @@
 import { html, LitElement } from '@polymer/lit-element';
 import '@polymer/paper-button';
 import * as data from '../../data/data.js';
+import { SimpleCard } from "../../card/simple-card.js";
 
 export default class HiraganasExercise extends LitElement {
   constructor() {
@@ -58,10 +59,19 @@ export default class HiraganasExercise extends LitElement {
         .hidden{
           display:none;
         }
+        .disabled{
+          background-color: lightgray;
+          color: #333;
+          cursor: not-allowed;
+        }
 
         @media screen and (max-width: 700px) {
           #previous, #next{
             display: none;
+          }
+
+          .buttons-smallscreen{
+            width: 100%;
           }
 
           #previous-smallscreen, #next-smallscreen{
@@ -71,13 +81,6 @@ export default class HiraganasExercise extends LitElement {
           .content{
             flex-direction: column;
           }
-          /* .content{
-            display: block;
-          }
-          #previous, #next{
-            position: relative;
-            bottom: 0;
-          } */
         }
       </style>
       <div class="title">
@@ -105,20 +108,20 @@ export default class HiraganasExercise extends LitElement {
   }
 
   _didRender() {
-    // this.shadowRoot.getElementById('previous').setAttribute("disabled", "false");
-    // this.shadowRoot.getElementById('next').setAttribute("disabled", "false");
-    // if (this.cards.length < 2) {
-    //   this.shadowRoot.getElementById('previous').setAttribute("disabled", "true");
-    //   this.shadowRoot.getElementById('next').setAttribute("disabled", "true");
-    // }
-    // if (this.currentIndex === 0) {
-    //   this.shadowRoot.getElementById('previous').setAttribute("disabled", "true");
-    // } else {
-    //   this.shadowRoot.getElementById('previous').setAttribute("disabled", "none");
-    // }
-    // if (this.currentIndex === this.cards.length - 1) {
-    //   this.shadowRoot.getElementById('next').setAttribute("disabled", "true");
-    // }
+    if (this.currentIndex === 0) {
+      this.shadowRoot.getElementById('previous').classList.add('disabled');
+      this.shadowRoot.getElementById('previous-smallscreen').classList.add('disabled');
+    } else {
+      this.shadowRoot.getElementById('previous').classList.remove('disabled');
+      this.shadowRoot.getElementById('previous-smallscreen').classList.remove('disabled');
+    }
+    if (this.currentIndex === this.cards.length - 1) {
+      this.shadowRoot.getElementById('next').classList.add('disabled');
+      this.shadowRoot.getElementById('next-smallscreen').classList.add('disabled');
+    } else {
+      this.shadowRoot.getElementById('next').classList.remove('disabled');
+      this.shadowRoot.getElementById('next-smallscreen').classList.remove('disabled');
+    }
   }
 
   getCardsFromIds(componentData) {

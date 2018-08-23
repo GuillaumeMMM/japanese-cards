@@ -119,7 +119,8 @@ export default class ExercisesList extends LitElement {
     `
   }
 
-  _firstRendered() {}
+  _firstRendered() {
+  }
 
   hiraganaSelected(e) {
     this.shadowRoot.getElementById('summary').classList.add("invisible");
