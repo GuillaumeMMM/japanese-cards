@@ -4,9 +4,13 @@ import '@polymer/iron-icons/iron-icons';
 import '@polymer/iron-icons/communication-icons';
 import '@polymer/paper-button';
 
+import * as data from '../data/data.js';
+import { ColorsBar } from "./colors-bar.js";
+
 export default class SimpleCard extends LitElement {
   constructor() {
     super();
+    this.difficulties = data.difficulties;
   }
 
   static get properties() {
@@ -23,20 +27,28 @@ export default class SimpleCard extends LitElement {
           font-weight: 300;
         }
 
+        .colors{
+          height: 10%;
+          width: 100%;
+          background-color: grey;
+        }
+
         paper-card{
           height: 100%;
-          padding: 20px;
           width: 100%;
         }
 
         .card-content{
           width: 100%;
-          height: 100%;
+          height: 92%;
           margin: 0;
-          padding: 0;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 20px 20px 0 20px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
         }
 
         /* entire container, keeps perspective */
@@ -97,6 +109,7 @@ export default class SimpleCard extends LitElement {
               <div class="card-content">
                 <div class="content">${this.dataElement.front}</div>
               </div>
+              <colors-bar difficulties="${this.difficulties}" mainDifficulty="${this.getDifficulty()}"></colors-bar>
             </paper-card>
           </div>
           <div class="back">
@@ -104,6 +117,7 @@ export default class SimpleCard extends LitElement {
               <div class="card-content">
                 <div class="content">${this.dataElement.back}</div>
               </div>
+              <colors-bar difficulties="${this.difficulties}" mainDifficulty="${this.getDifficulty()}"></colors-bar>
             </paper-card>
           </div>
         </div>
@@ -113,6 +127,11 @@ export default class SimpleCard extends LitElement {
 
   _firstRendered() {
   }
+
+  getDifficulty() {
+    return this.dataElement.difficulty;
+  }
+
 }
 
 customElements.define("simple-card", SimpleCard);

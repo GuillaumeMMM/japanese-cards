@@ -8,13 +8,6 @@ import { Navbar } from '../meta/navbar.js';
 export default class ExercisesList extends LitElement {
   constructor() {
     super();
-    this.exercise = this.getExercises(data);
-    this.hiraganas = this.exercise.filter((ex) => {
-        return ex['name'] === 'Hiraganas';
-    })[0];
-    this.katakanas = this.exercise.filter((ex) => {
-        return ex['name'] === 'Katakanas';
-    })[0];
   }
 
   static get properties() {
@@ -43,12 +36,6 @@ export default class ExercisesList extends LitElement {
             width: 100%;
             height: 100%;
             background-color: #fafafa;
-        }
-        .invisible{
-            display: none;
-        }
-        .visible{
-            display: block;
         }
         .content{
             height: 80%; 
@@ -87,7 +74,7 @@ export default class ExercisesList extends LitElement {
             </div>
             <div class="content">
                 <div class="summary-element">
-                    <a href="#" id="summary-hiragana" on-click="${(e) => this.hiraganaSelected(e)}">
+                    <a href="/hiraganas" id="summary-hiragana">
                         <paper-card>
                             <div class='summary-title'>
                                 Hiraganas
@@ -99,7 +86,7 @@ export default class ExercisesList extends LitElement {
                     </a>
                 </div>
                 <div class="summary-element"> 
-                    <a href="#" id="summary-katakanas" on-click="${(e) => this.katakanaSelected(e)}">
+                    <a href="/katakanas" id="summary-katakanas">
                         <paper-card>
                             <div class='summary-title'>
                                 Katakanas
@@ -112,33 +99,10 @@ export default class ExercisesList extends LitElement {
                 </div>
             </div>
         </div>
-        <div class="detail">
-            <hiraganas-exercise id="hiraganas" class="invisible" data="${this.hiraganas}"></hiraganas-exercise>
-            <katakanas-exercise id="katakanas"  class="invisible" data="${this.katakanas}"></katakanas-exercise>
-        </div>
     `
   }
 
   _firstRendered() {
-  }
-
-  hiraganaSelected(e) {
-    this.shadowRoot.getElementById('summary').classList.add("invisible");
-    this.shadowRoot.getElementById('hiraganas').classList.add("visible");
-  }
-  katakanaSelected(e) {
-    this.shadowRoot.getElementById('summary').classList.add("invisible");
-    this.shadowRoot.getElementById('katakanas').classList.add("visible");
-  }
-
-  getExercises(dataTmp) {
-    let exercises = [];
-    for (let i = 0; i < Object.keys(dataTmp).length; i++) {
-        if (dataTmp[Object.keys(dataTmp)[i]]['type'] === 'exercise') {
-            exercises.unshift(dataTmp[Object.keys(dataTmp)[i]]);
-        }
-    }
-    return exercises;
   }
 }
 

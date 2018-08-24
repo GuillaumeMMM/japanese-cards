@@ -55,6 +55,12 @@ export const data = [
     {front: 'ん', back: 'N', id: 47, difficulty: 1},
   ];
 
+  export const difficulties = [
+    {index: 1, name: 'easy', color: '#E8E8E8', textColor: '#686868'},
+    {index: 2, name: 'normal', color: '#C0C0C0', textColor: 'white'},
+    {index: 3, name: 'hard', color: '#989898', textColor: 'white'},
+    {index: 4, name: 'impossible', color: '#686868', textColor: 'white'}];
+
   export const collection1 = {
       id: 1,
       type: 'collection',

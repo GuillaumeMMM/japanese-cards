@@ -10,6 +10,10 @@ export default class HiraganasExercise extends LitElement {
       {front:'front', back:'back'}
     ];
     this.currentIndex = 0;
+    this.exercise = this.getExercises(data);
+    this.data = this.exercise.filter((ex) => {
+        return ex['name'] === 'Hiraganas';
+    })[0];
   }
 
   static get properties() {
@@ -83,6 +87,7 @@ export default class HiraganasExercise extends LitElement {
           }
         }
       </style>
+      <navbar-element text="exercises"></navbar-element>
       <div class="title">
         ${this.data.name}
       </div>
@@ -146,6 +151,16 @@ export default class HiraganasExercise extends LitElement {
   nextCard(e) {
     (this.currentIndex === this.cards.length - 1) ? this.currentIndex = this.cards.length - 1 : this.currentIndex++;
     this.requestRender();
+  }
+
+  getExercises(dataTmp) {
+    let exercises = [];
+    for (let i = 0; i < Object.keys(dataTmp).length; i++) {
+        if (dataTmp[Object.keys(dataTmp)[i]]['type'] === 'exercise') {
+            exercises.unshift(dataTmp[Object.keys(dataTmp)[i]]);
+        }
+    }
+    return exercises;
   }
 }
 
