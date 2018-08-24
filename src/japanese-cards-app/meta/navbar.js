@@ -40,12 +40,16 @@ export default class Navbar extends LitElement {
         .underlined{
           border-bottom: 1px solid currentColor;
         }
+        .disable{
+          color: lightgrey !important;
+          cursor: not-allowed;
+        }
 
       </style>
       <div class="navbar">
         <ul>
           <li><a href="/" id="home">Home</a></li>
-          <li><a href="#" id="collections">Collections</a></li>
+          <li><a  class="disable" href="#" id="collections">Collections</a></li>
           <li><a href="/exercises" id="exercises">Exercises</a></li>
         </ul>
       </div>
@@ -56,9 +60,9 @@ export default class Navbar extends LitElement {
     if (this.text === 'home') {
       this.shadowRoot.getElementById('home').classList.add("underlined");
     }
-    if (this.text === 'collections') {
-      this.shadowRoot.getElementById('collections').classList.add("underlined");
-    }
+    // if (this.text === 'collections') {
+    //   this.shadowRoot.getElementById('collections').classList.add("underlined");
+    // }
     if (this.text === 'exercises') {
       this.shadowRoot.getElementById('exercises').classList.add("underlined");
     }
