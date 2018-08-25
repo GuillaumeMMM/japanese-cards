@@ -26,6 +26,7 @@ export default class Home extends LitElement {
             align-items: center;
             height: 100%;
         }
+
         /* #home-image{
             width: 20%;
         } */
@@ -39,8 +40,6 @@ export default class Home extends LitElement {
       </div>
     `
   }
-
-  _firstRendered() { }
 }
 
 customElements.define("home-element", Home);

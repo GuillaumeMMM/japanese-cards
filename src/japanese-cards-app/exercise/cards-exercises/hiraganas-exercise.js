@@ -2,6 +2,7 @@ import { html, LitElement } from '@polymer/lit-element';
 import '@polymer/paper-button';
 import * as data from '../../data/data.js';
 import { SimpleCard } from "../../card/simple-card.js";
+import '@polymer/iron-icons/av-icons';
 
 export default class HiraganasExercise extends LitElement {
   constructor() {
@@ -48,6 +49,11 @@ export default class HiraganasExercise extends LitElement {
           flex-direction: row;
           align-items: center;
         }
+        #randomize{
+          font-size: 1.5vw;
+          position: absolute;
+          left:0;
+        }
 
         paper-button{
           background-color: white;
@@ -70,7 +76,7 @@ export default class HiraganasExercise extends LitElement {
         }
 
         @media screen and (max-width: 700px) {
-          #previous, #next{
+          #previous, #next, #randomize{
             display: none;
           }
 
@@ -78,7 +84,7 @@ export default class HiraganasExercise extends LitElement {
             width: 100%;
           }
 
-          #previous-smallscreen, #next-smallscreen{
+          #previous-smallscreen, #next-smallscreen, #randomize-smallscreen{
             display: flex;
             flex-direction: row;
           }
@@ -90,17 +96,19 @@ export default class HiraganasExercise extends LitElement {
       <navbar-element text="exercises"></navbar-element>
       <div class="title">
         ${this.data.name}
+        <paper-button raised on-click="${(e) => this.randomize(e)}" id="randomize"><iron-icon icon="av:shuffle"></iron-icon></paper-button>
       </div>
       <div class="global-content">
         <div class="content">
           <paper-button raised id="previous" class="visible" on-click="${(e) => this.previousCard(e)}">Previous</paper-button>
           <div class="cards">
-            <a href="#"><simple-card dataElement="${this.cards[this.currentIndex]}"></simple-card></a>
+            <a href="#"><simple-card dataElement="${this.cards[this.currentIndex]}" index="${this.currentIndex + 1}" exerciseLength="${this.data.cards.length}"></simple-card></a>
           </div>
           <paper-button raised id="next" class="visible" on-click="${(e) => this.nextCard(e)}">Next</paper-button>
           <div class="buttons-smallscreen">
             <paper-button raised id="next-smallscreen" class="hidden" on-click="${(e) => this.nextCard(e)}">Next</paper-button>
             <paper-button raised id="previous-smallscreen" class="hidden" on-click="${(e) => this.previousCard(e)}">Previous</paper-button>
+            <paper-button raised on-click="${(e) => this.randomize(e)}" class="hidden" id="randomize-smallscreen">Randomize</paper-button>
           </div>
         </div>
       </div>
@@ -132,14 +140,12 @@ export default class HiraganasExercise extends LitElement {
   getCardsFromIds(componentData) {
     const cardsIds = componentData['cards'];
     const dataCards = data['cards'];
-    const componentCards = dataCards.filter((card) => {
-      let inExercise = false;
-      cardsIds.forEach((cardId) => {
-        if (cardId === card['id']) {
-          inExercise = true;
-        }
-      });
-      return inExercise;
+    const componentCards = [];
+    cardsIds.forEach((id) => {
+      const cardToAdd = dataCards.filter((card) => {
+        return (id === card['id']);
+      })[0];
+      componentCards.push(cardToAdd)
     });
     return componentCards;
   }
@@ -161,6 +167,21 @@ export default class HiraganasExercise extends LitElement {
         }
     }
     return exercises;
+  }
+
+  randomize(event) {
+    const currentCards = JSON.parse(JSON.stringify(this.data.cards));
+    const newCards = [];
+
+    while (currentCards.length > 0) {
+      var randIndex = Math.round(Math.random() * (currentCards.length - 1));
+      newCards.push(currentCards[randIndex]);
+      currentCards.splice(randIndex, 1);
+    }
+    this.data.cards = newCards;
+    this.cards = this.getCardsFromIds(this.data);
+    this.currentIndex = 0;
+    this.requestRender();
   }
 }
 

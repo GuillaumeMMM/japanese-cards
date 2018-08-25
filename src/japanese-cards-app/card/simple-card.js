@@ -16,6 +16,8 @@ export default class SimpleCard extends LitElement {
   static get properties() {
     return {
       dataElement: Object,
+      index: Number,
+      exerciseLength: Number,
     };
   };
 
@@ -96,6 +98,12 @@ export default class SimpleCard extends LitElement {
           height: 100%;
         }
 
+        .card-header{
+          position: absolute;
+          top: 10px;
+          left: 10px;
+        }
+
         @media screen and (max-width: 700px) {
           .content{
             font-size: 30vw;
@@ -107,6 +115,7 @@ export default class SimpleCard extends LitElement {
           <div class="front">
             <paper-card>
               <div class="card-content">
+              <div class="card-header">${this.index} / ${this.exerciseLength}</div>
                 <div class="content">${this.dataElement.front}</div>
               </div>
               <colors-bar difficulties="${this.difficulties}" mainDifficulty="${this.getDifficulty()}"></colors-bar>
@@ -115,6 +124,7 @@ export default class SimpleCard extends LitElement {
           <div class="back">
             <paper-card>
               <div class="card-content">
+              <div class="card-header">${this.index} / ${this.exerciseLength}</div>
                 <div class="content">${this.dataElement.back}</div>
               </div>
               <colors-bar difficulties="${this.difficulties}" mainDifficulty="${this.getDifficulty()}"></colors-bar>
