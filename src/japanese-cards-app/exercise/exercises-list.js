@@ -103,6 +103,8 @@ export default class ExercisesList extends LitElement {
   }
 
   _firstRendered() {
+      localStorage.setItem('hiragana-tags', JSON.stringify(['hiragana', '(han)dakuten']));
+      localStorage.setItem('katakana-tags', 'katakana');
   }
 }
 

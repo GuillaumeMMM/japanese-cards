@@ -15,6 +15,14 @@ export default class HiraganasExercise extends LitElement {
     this.data = this.exercise.filter((ex) => {
         return ex['name'] === 'Hiraganas';
     })[0];
+
+    let tags = [];
+    if (localStorage.getItem('hiragana-tags')) {
+       tags = JSON.parse(localStorage.getItem('hiragana-tags'));
+    } else {
+      tags = ['hiragana']
+    }
+    this.data['cards'] = this.getTagData(tags, data.cards);
   }
 
   static get properties() {
@@ -167,6 +175,22 @@ export default class HiraganasExercise extends LitElement {
         }
     }
     return exercises;
+  }
+
+  getTagData(tags, dataTmp) {
+    let tagData = [];
+    for (let i = 0; i < Object.keys(dataTmp).length; i++) {
+      let tagged = true;
+      tags.forEach((tag) => {
+        if (dataTmp[i]['tags'].indexOf(tag) === -1) {
+          tagged = false;
+        }
+      });
+      if (tagged) {
+        tagData.push(dataTmp[i]['id']);
+      }
+    }
+    return tagData;
   }
 
   randomize(event) {
