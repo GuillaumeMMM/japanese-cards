@@ -77,6 +77,7 @@ export class SimpleCard extends LitElement {
         /* hide back of pane during swap */
         .front, .back {
           backface-visibility: hidden;
+          -webkit-backface-visibility: hidden;
           position: absolute;
           top: 0;
           left: 0;
@@ -110,7 +111,7 @@ export class SimpleCard extends LitElement {
           }
         }
       </style>
-      <div class="flip-container" onclick="this.classList.toggle('hover');">
+      <div class="flip-container" id="flip-container" on-click="${(e) => this.editClassList(e)}">
         <div class="flipper">
           <div class="front">
             <paper-card>
@@ -136,6 +137,10 @@ export class SimpleCard extends LitElement {
   }
 
   _firstRendered() {
+  }
+
+  editClassList(event) {
+    this.shadowRoot.getElementById('flip-container').classList.toggle('hover');
   }
 
   getDifficulty() {
