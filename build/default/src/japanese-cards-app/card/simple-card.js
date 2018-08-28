@@ -3,14 +3,19 @@ import "../../../node_modules/@polymer/paper-card/paper-card.js";
 import "../../../node_modules/@polymer/iron-icons/iron-icons.js";
 import "../../../node_modules/@polymer/iron-icons/communication-icons.js";
 import "../../../node_modules/@polymer/paper-button/paper-button.js";
-export default class SimpleCard extends LitElement {
+import * as data from '../data/data.js';
+import { ColorsBar } from "./colors-bar.js";
+export class SimpleCard extends LitElement {
   constructor() {
     super();
+    this.difficulties = data.difficulties;
   }
 
   static get properties() {
     return {
-      dataElement: Object
+      dataElement: Object,
+      index: Number,
+      exerciseLength: Number
     };
   }
 
@@ -22,20 +27,28 @@ export default class SimpleCard extends LitElement {
           font-weight: 300;
         }
 
+        .colors{
+          height: 10%;
+          width: 100%;
+          background-color: grey;
+        }
+
         paper-card{
           height: 100%;
-          padding: 20px;
           width: 100%;
         }
 
         .card-content{
           width: 100%;
-          height: 100%;
+          height: 92%;
           margin: 0;
-          padding: 0;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 20px 20px 0 20px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          -webkit-box-sizing: border-box;
         }
 
         /* entire container, keeps perspective */
@@ -44,7 +57,7 @@ export default class SimpleCard extends LitElement {
           height: 100%;
         }
         /* flip the pane when hovered */
-        .flip-container:hover .flipper, .flip-container.hover .flipper {
+        .flip-container.hover .flipper {
           transform: rotateY(180deg);
         }
 
@@ -83,26 +96,36 @@ export default class SimpleCard extends LitElement {
           height: 100%;
         }
 
+        .card-header{
+          position: absolute;
+          top: 10px;
+          left: 10px;
+        }
+
         @media screen and (max-width: 700px) {
           .content{
             font-size: 30vw;
           }
         }
       </style>
-      <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+      <div class="flip-container" onclick="this.classList.toggle('hover');">
         <div class="flipper">
           <div class="front">
             <paper-card>
               <div class="card-content">
+              <div class="card-header">${this.index} / ${this.exerciseLength}</div>
                 <div class="content">${this.dataElement.front}</div>
               </div>
+              <colors-bar difficulties="${this.difficulties}" mainDifficulty="${this.getDifficulty()}"></colors-bar>
             </paper-card>
           </div>
           <div class="back">
             <paper-card>
               <div class="card-content">
+              <div class="card-header">${this.index} / ${this.exerciseLength}</div>
                 <div class="content">${this.dataElement.back}</div>
               </div>
+              <colors-bar difficulties="${this.difficulties}" mainDifficulty="${this.getDifficulty()}"></colors-bar>
             </paper-card>
           </div>
         </div>
@@ -111,6 +134,10 @@ export default class SimpleCard extends LitElement {
   }
 
   _firstRendered() {}
+
+  getDifficulty() {
+    return this.dataElement.difficulty;
+  }
 
 }
 customElements.define("simple-card", SimpleCard);

@@ -1,5 +1,5 @@
 import { html, LitElement } from "../../../node_modules/@polymer/lit-element/lit-element.js";
-export default class CollectionsList extends LitElement {
+export class CollectionsList extends LitElement {
   constructor() {
     super();
   }

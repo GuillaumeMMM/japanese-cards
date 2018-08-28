@@ -3,7 +3,7 @@ import "../../../node_modules/@polymer/paper-card/paper-card.js";
 import "../../../node_modules/@polymer/iron-icons/iron-icons.js";
 import "../../../node_modules/@polymer/iron-icons/communication-icons.js";
 import "../../../node_modules/@polymer/paper-button/paper-button.js";
-export default class SmallCard extends LitElement {
+export class SmallCard extends LitElement {
   constructor() {
     super();
   }

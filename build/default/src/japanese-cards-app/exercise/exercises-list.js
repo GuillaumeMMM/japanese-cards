@@ -1,18 +1,14 @@
 import { html, LitElement } from "../../../node_modules/@polymer/lit-element/lit-element.js";
+import "../../../node_modules/@polymer/paper-button/paper-button.js";
 import * as data from '../data/data.js';
 import { HiraganasExercise } from './cards-exercises/hiraganas-exercise.js';
 import { KatakanasExercise } from './cards-exercises/katakanas-exercise.js';
 import { Navbar } from '../meta/navbar.js';
-export default class ExercisesList extends LitElement {
+export class ExercisesList extends LitElement {
   constructor() {
     super();
-    this.exercise = this.getExercises(data);
-    this.hiraganas = this.exercise.filter(ex => {
-      return ex['name'] === 'Hiraganas';
-    })[0];
-    this.katakanas = this.exercise.filter(ex => {
-      return ex['name'] === 'Katakanas';
-    })[0];
+    this.hiraganaTags = [];
+    this.katakanaTags = [];
   }
 
   static get properties() {
@@ -42,12 +38,6 @@ export default class ExercisesList extends LitElement {
             height: 100%;
             background-color: #fafafa;
         }
-        .invisible{
-            display: none;
-        }
-        .visible{
-            display: block;
-        }
         .content{
             height: 80%; 
             width: 100%;
@@ -62,7 +52,7 @@ export default class ExercisesList extends LitElement {
         }
         .summary-title{
             padding: 5px 10px;
-            font-weight: 200;
+            /* font-weight: 200; */
         }
         .summary-preview{
             margin-top:0;
@@ -77,6 +67,13 @@ export default class ExercisesList extends LitElement {
         #hiraganas, #hatakanas{
             height: 100%
         }
+        #hiraganaTags, #katakanaTags{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            font-size: 1.5vw;
+            background-color: white;
+        }
       </style>
         <navbar-element text="exercises"></navbar-element>
         <div class="summary" id="summary">
@@ -85,60 +82,133 @@ export default class ExercisesList extends LitElement {
             </div>
             <div class="content">
                 <div class="summary-element">
-                    <a href="#" id="summary-hiragana" on-click="${e => this.hiraganaSelected(e)}">
                         <paper-card>
+                            <a href="/hiraganas" id="summary-hiragana">
                             <div class='summary-title'>
                                 Hiraganas
                             </div>
                             <div class='summary-preview'>
                                 あ か さ た な は ま や ら わ い き し ち に ひ み り う
                             </div>
+                            </a>
+                            <div id="hiraganaTags">
+                                <paper-button id="selectButtonGojuonHira" raised on-click="${e => this.setHiraganaTags('gojūon')}">Gojūon</paper-button>
+                                <paper-button id="selectButtonDakutenHira" raised on-click="${e => this.setHiraganaTags('(han)dakuten')}">(han) Dakuten</paper-button>
+                                <paper-button id="selectButtonYoonHira" raised on-click="${e => this.setHiraganaTags('yōon')}">yōon</paper-button>
+                            </div>
                         </paper-card>
-                    </a>
                 </div>
                 <div class="summary-element"> 
-                    <a href="#" id="summary-katakanas" on-click="${e => this.katakanaSelected(e)}">
-                        <paper-card>
-                            <div class='summary-title'>
-                                Katakanas
-                            </div>
-                            <div class='summary-preview'>
-                                カ サ タ ナ ハ マ ヤ ラ ワ キ シ チ ニ ヒ
-                            </div>
-                        </paper-card>
-                    </a>
+                    <paper-card>
+                        <a href="/katakanas" id="summary-katakanas">
+                                <div class='summary-title'>
+                                    Katakanas
+                                </div>
+                                <div class='summary-preview'>
+                                    カ サ タ ナ ハ マ ヤ ラ ワ キ シ チ ニ ヒ
+                                </div>
+                        </a>
+                        <div id="katakanaTags">
+                                <paper-button id="selectButtonGojuonKata" raised on-click="${e => this.setKatakanaTags('gojūon')}">Gojūon</paper-button>
+                                <paper-button id="selectButtonDakutenKata" raised on-click="${e => this.setKatakanaTags('(han)dakuten')}">(han) Dakuten</paper-button>
+                                <paper-button id="selectButtonYoonKata" raised on-click="${e => this.setKatakanaTags('yōon')}">yōon</paper-button>
+                        </div>
+                    </paper-card>
                 </div>
             </div>
-        </div>
-        <div class="detail">
-            <hiraganas-exercise id="hiraganas" class="invisible" data="${this.hiraganas}"></hiraganas-exercise>
-            <katakanas-exercise id="katakanas"  class="invisible" data="${this.katakanas}"></katakanas-exercise>
         </div>
     `;
   }
 
-  _firstRendered() {}
-
-  hiraganaSelected(e) {
-    this.shadowRoot.getElementById('summary').classList.add("invisible");
-    this.shadowRoot.getElementById('hiraganas').classList.add("visible");
+  _firstRendered() {
+    localStorage.setItem('hiragana-tags', JSON.stringify(['gojūon', '(han)dakuten', 'yōon']));
+    this.shadowRoot.getElementById('selectButtonGojuonHira').setAttribute('style', 'background-color: white');
+    this.shadowRoot.getElementById('selectButtonDakutenHira').setAttribute('style', 'background-color: white');
+    this.shadowRoot.getElementById('selectButtonYoonHira').setAttribute('style', 'background-color: white');
+    localStorage.setItem('katakana-tags', JSON.stringify(['gojūon', '(han)dakuten', 'yōon']));
+    this.shadowRoot.getElementById('selectButtonGojuonKata').setAttribute('style', 'background-color: white');
+    this.shadowRoot.getElementById('selectButtonDakutenKata').setAttribute('style', 'background-color: white');
+    this.shadowRoot.getElementById('selectButtonYoonKata').setAttribute('style', 'background-color: white');
   }
 
-  katakanaSelected(e) {
-    this.shadowRoot.getElementById('summary').classList.add("invisible");
-    this.shadowRoot.getElementById('katakanas').classList.add("visible");
-  }
+  setHiraganaTags(tag) {
+    var tags = JSON.parse(localStorage.getItem('hiragana-tags'));
 
-  getExercises(dataTmp) {
-    let exercises = [];
+    if (tags.indexOf(tag) === -1) {
+      tags.push(tag);
+      localStorage.setItem('hiragana-tags', JSON.stringify(tags));
 
-    for (let i = 0; i < Object.keys(dataTmp).length; i++) {
-      if (dataTmp[Object.keys(dataTmp)[i]]['type'] === 'exercise') {
-        exercises.unshift(dataTmp[Object.keys(dataTmp)[i]]);
+      switch (tag) {
+        case 'gojūon':
+          this.shadowRoot.getElementById('selectButtonGojuonHira').setAttribute('style', 'background-color: white');
+          break;
+
+        case '(han)dakuten':
+          this.shadowRoot.getElementById('selectButtonDakutenHira').setAttribute('style', 'background-color: white');
+          break;
+
+        case 'yōon':
+          this.shadowRoot.getElementById('selectButtonYoonHira').setAttribute('style', 'background-color: white');
+          break;
+      }
+    } else {
+      tags.splice(tags.indexOf(tag), 1);
+      localStorage.setItem('hiragana-tags', JSON.stringify(tags));
+
+      switch (tag) {
+        case 'gojūon':
+          this.shadowRoot.getElementById('selectButtonGojuonHira').setAttribute('style', 'background-color: lightgrey');
+          break;
+
+        case '(han)dakuten':
+          this.shadowRoot.getElementById('selectButtonDakutenHira').setAttribute('style', 'background-color: lightgrey');
+          break;
+
+        case 'yōon':
+          this.shadowRoot.getElementById('selectButtonYoonHira').setAttribute('style', 'background-color: lightgrey');
+          break;
       }
     }
+  }
 
-    return exercises;
+  setKatakanaTags(tag) {
+    var tags = JSON.parse(localStorage.getItem('katakana-tags'));
+
+    if (tags.indexOf(tag) === -1) {
+      tags.push(tag);
+      localStorage.setItem('katakana-tags', JSON.stringify(tags));
+
+      switch (tag) {
+        case 'gojūon':
+          this.shadowRoot.getElementById('selectButtonGojuonKata').setAttribute('style', 'background-color: white');
+          break;
+
+        case '(han)dakuten':
+          this.shadowRoot.getElementById('selectButtonDakutenKata').setAttribute('style', 'background-color: white');
+          break;
+
+        case 'yōon':
+          this.shadowRoot.getElementById('selectButtonYoonKata').setAttribute('style', 'background-color: white');
+          break;
+      }
+    } else {
+      tags.splice(tags.indexOf(tag), 1);
+      localStorage.setItem('katakana-tags', JSON.stringify(tags));
+
+      switch (tag) {
+        case 'gojūon':
+          this.shadowRoot.getElementById('selectButtonGojuonKata').setAttribute('style', 'background-color: lightgrey');
+          break;
+
+        case '(han)dakuten':
+          this.shadowRoot.getElementById('selectButtonDakutenKata').setAttribute('style', 'background-color: lightgrey');
+          break;
+
+        case 'yōon':
+          this.shadowRoot.getElementById('selectButtonYoonKata').setAttribute('style', 'background-color: lightgrey');
+          break;
+      }
+    }
   }
 
 }

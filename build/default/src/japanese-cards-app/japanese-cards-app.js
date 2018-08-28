@@ -49,6 +49,12 @@ class JapaneseCardsApp extends LitElement {
     }, {
       path: '/collections',
       component: 'collections-list'
+    }, {
+      path: '/hiraganas',
+      component: 'hiraganas-exercise'
+    }, {
+      path: '/katakanas',
+      component: 'katakanas-exercise'
     }]);
   }
 

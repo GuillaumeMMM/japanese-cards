@@ -1,6 +1,7 @@
 import { html, LitElement } from "../../../node_modules/@polymer/lit-element/lit-element.js";
 import { SmallCard } from '../card/small-card.js';
-export default class CardsCollection extends LitElement {
+import { SimpleCard } from "../card/simple-card.js";
+export class CardsCollection extends LitElement {
   constructor() {
     super();
     this.characters = ['か', 'あ', 'さ', 'た', 'な', 'は', 'ま', 'や', 'ら', 'わ'];

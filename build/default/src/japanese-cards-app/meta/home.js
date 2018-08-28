@@ -1,6 +1,6 @@
 import { html, LitElement } from "../../../node_modules/@polymer/lit-element/lit-element.js";
 import { Navbar } from './navbar.js';
-export default class Home extends LitElement {
+export class Home extends LitElement {
   constructor() {
     super();
   }
@@ -25,6 +25,7 @@ export default class Home extends LitElement {
             align-items: center;
             height: 100%;
         }
+
         /* #home-image{
             width: 20%;
         } */
@@ -38,8 +39,6 @@ export default class Home extends LitElement {
       </div>
     `;
   }
-
-  _firstRendered() {}
 
 }
 customElements.define("home-element", Home);
