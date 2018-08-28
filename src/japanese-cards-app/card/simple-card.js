@@ -7,7 +7,7 @@ import '@polymer/paper-button';
 import * as data from '../data/data.js';
 import { ColorsBar } from "./colors-bar.js";
 
-export default class SimpleCard extends LitElement {
+export class SimpleCard extends LitElement {
   constructor() {
     super();
     this.difficulties = data.difficulties;
@@ -59,7 +59,7 @@ export default class SimpleCard extends LitElement {
           height: 100%;
         }
         /* flip the pane when hovered */
-        .flip-container:hover .flipper, .flip-container.hover .flipper {
+        .flip-container.hover .flipper {
           transform: rotateY(180deg);
         }
 
@@ -110,7 +110,7 @@ export default class SimpleCard extends LitElement {
           }
         }
       </style>
-      <div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+      <div class="flip-container" onclick="this.classList.toggle('hover');">
         <div class="flipper">
           <div class="front">
             <paper-card>

@@ -2,7 +2,7 @@ import { html, LitElement } from '@polymer/lit-element';
 
 import * as data from '../data/data.js';
 
-export default class Navbar extends LitElement {
+export class Navbar extends LitElement {
   constructor() {
     super();
   }

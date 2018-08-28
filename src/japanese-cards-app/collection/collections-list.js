@@ -1,6 +1,6 @@
 import { html, LitElement } from '@polymer/lit-element';
 
-export default class CollectionsList extends LitElement {
+export class CollectionsList extends LitElement {
     constructor() {
         super();
     }

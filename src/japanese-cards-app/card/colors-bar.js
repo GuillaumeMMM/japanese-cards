@@ -1,6 +1,6 @@
 import { html, LitElement } from '@polymer/lit-element';
 
-export default class ColorsBar extends LitElement {
+export class ColorsBar extends LitElement {
   constructor() {
     super();
   }

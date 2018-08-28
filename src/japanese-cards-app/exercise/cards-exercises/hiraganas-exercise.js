@@ -4,7 +4,7 @@ import * as data from '../../data/data.js';
 import { SimpleCard } from "../../card/simple-card.js";
 import '@polymer/iron-icons/av-icons';
 
-export default class HiraganasExercise extends LitElement {
+export class HiraganasExercise extends LitElement {
   constructor() {
     super();
     this.cards = [
@@ -180,14 +180,16 @@ export default class HiraganasExercise extends LitElement {
   getTagData(tags, dataTmp) {
     let tagData = [];
     for (let i = 0; i < Object.keys(dataTmp).length; i++) {
-      let tagged = true;
-      tags.forEach((tag) => {
-        if (dataTmp[i]['tags'].indexOf(tag) === -1) {
-          tagged = false;
+      if (dataTmp[i]['tags'].indexOf('hiragana') !== -1) {
+        let tagged = true;
+        dataTmp[i]['tags'].forEach((dataTag) => {
+          if (dataTag !== 'hiragana' && tags.indexOf(dataTag) === -1) {
+            tagged = false;
+          }
+        });
+        if (tagged || tags.length === 0) {
+          tagData.push(dataTmp[i]['id']);
         }
-      });
-      if (tagged) {
-        tagData.push(dataTmp[i]['id']);
       }
     }
     return tagData;

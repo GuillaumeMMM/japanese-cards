@@ -4,7 +4,7 @@ import '@polymer/paper-button';
 import * as data from '../../data/data.js';
 import { SimpleCard } from "../../card/simple-card.js";
 
-export default class KatakanasExercise extends LitElement {
+export class KatakanasExercise extends LitElement {
   constructor() {
     super();
     this.cards = [
@@ -15,7 +15,14 @@ export default class KatakanasExercise extends LitElement {
     this.data = this.exercise.filter((ex) => {
         return ex['name'] === 'Katakanas';
     })[0];
-    this.data['cards'] = this.getTagData('katakana', data.cards);
+   
+    let tags = [];
+    if (localStorage.getItem('katakana-tags')) {
+       tags = JSON.parse(localStorage.getItem('katakana-tags'));
+    } else {
+      tags = ['katakana']
+    }
+    this.data['cards'] = this.getTagData(tags, data.cards);
   }
 
   static get properties() {
@@ -170,12 +177,20 @@ export default class KatakanasExercise extends LitElement {
     return exercises;
   }
 
-  getTagData(tag, dataTmp) {
+  getTagData(tags, dataTmp) {
     let tagData = [];
     for (let i = 0; i < Object.keys(dataTmp).length; i++) {
-        if (dataTmp[i]['tags'].indexOf(tag) != -1) {
-            tagData.push(dataTmp[i]['id']);
+      if (dataTmp[i]['tags'].indexOf('katakana') !== -1) {
+        let tagged = true;
+        dataTmp[i]['tags'].forEach((dataTag) => {
+          if (dataTag !== 'katakana' && tags.indexOf(dataTag) === -1) {
+            tagged = false;
+          }
+        });
+        if (tagged || tags.length === 0) {
+          tagData.push(dataTmp[i]['id']);
         }
+      }
     }
     return tagData;
   }

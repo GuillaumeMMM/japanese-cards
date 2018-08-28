@@ -4,7 +4,7 @@ import '@polymer/iron-icons/iron-icons';
 import '@polymer/iron-icons/communication-icons';
 import '@polymer/paper-button';
 
-export default class SmallCard extends LitElement {
+export class SmallCard extends LitElement {
   constructor() {
     super();
   }

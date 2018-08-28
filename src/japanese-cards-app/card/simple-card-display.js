@@ -3,7 +3,7 @@ import { html, LitElement } from '@polymer/lit-element';
 import { SimpleCard } from './simple-card.js';
 import * as data from '../data/data.js';
 
-export default class SimpleCardDisplay extends LitElement {
+export class SimpleCardDisplay extends LitElement {
   constructor() {
     super();
     this.dataElement = data.data[0];
